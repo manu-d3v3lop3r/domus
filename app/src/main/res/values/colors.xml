@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Colores usados fuera de Compose (pantalla de inicio nativa). La paleta completa está en interfaz/tema/Colores.kt. -->
+<resources>
+    <color name="domus_principal">#FF16866A</color>
+    <color name="domus_fondo">#FFF7F9F7</color>
+</resources>

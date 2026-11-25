@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!--
+        Sincronización del hogar con móviles cercanos (Nearby Connections). Lista oficial de
+        Google. Los permisos peligrosos se piden en tiempo de ejecución solo al sincronizar.
+        La app NO declara INTERNET: los datos nunca salen hacia un servidor.
+    -->
+    <uses-permission android:maxSdkVersion="32" android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:maxSdkVersion="32" android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:maxSdkVersion="30" android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:maxSdkVersion="30" android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:maxSdkVersion="32" android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:minSdkVersion="29" android:maxSdkVersion="32" android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:minSdkVersion="31" android:name="android.permission.BLUETOOTH_ADVERTISE" />
+    <uses-permission android:minSdkVersion="31" android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:minSdkVersion="31" android:name="android.permission.BLUETOOTH_SCAN"
+        android:usesPermissionFlags="neverForLocation"
+        tools:targetApi="31" />
+    <uses-permission android:minSdkVersion="33" android:name="android.permission.NEARBY_WIFI_DEVICES"
+        android:usesPermissionFlags="neverForLocation"
+        tools:targetApi="33" />
+    <uses-permission android:minSdkVersion="37" android:name="android.permission.ACCESS_LOCAL_NETWORK" />
+
+    <!-- El hardware de radio es opcional: sin él la app funciona, solo no puede sincronizar. -->
+    <uses-feature android:name="android.hardware.bluetooth" android:required="false" />
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="false" />
+    <uses-feature android:name="android.hardware.wifi" android:required="false" />
+
+    <!--
+        allowBackup=false: la base de datos está cifrada con una clave protegida por
+        Android Keystore que no puede exportarse; una copia restaurada sería ilegible.
+    -->
+    <application
+        android:name=".AplicacionDomus"
+        android:allowBackup="false"
+        android:dataExtractionRules="@xml/reglas_extraccion_datos"
+        android:fullBackupContent="@xml/reglas_copia_seguridad"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/nombre_app"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Tema.Domus"
+        tools:targetApi="31">
+        <activity
+            android:name=".ActividadPrincipal"
+            android:exported="false"
+            android:theme="@style/Tema.Domus.Inicio"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!--
+            Punto de entrada del lanzador. Conserva el nombre de componente original
+            (.MainActivity) para no romper los accesos directos que los usuarios ya tengan
+            en la pantalla de inicio; abre ActividadPrincipal.
+        -->
+        <activity-alias
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/nombre_app"
+            android:targetActivity=".ActividadPrincipal">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <!--
+            La biblioteca de Nearby incluye un servicio exportado de Exposure Notifications
+            (rastreo de contactos COVID) que Domus no utiliza: se elimina para no exponerlo.
+        -->
+        <service
+            android:name="com.google.android.gms.nearby.exposurenotification.WakeUpService"
+            tools:ignore="MissingClass"
+            tools:node="remove" />
+    </application>
+
+</manifest>

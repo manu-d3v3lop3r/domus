@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Tema.Domus" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/domus_fondo</item>
+    </style>
+
+    <!-- Pantalla de inicio nativa (AndroidX SplashScreen, compatible desde API 26). -->
+    <style name="Tema.Domus.Inicio" parent="Theme.SplashScreen.IconBackground">
+        <item name="windowSplashScreenBackground">@color/domus_fondo</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="windowSplashScreenIconBackgroundColor">@color/domus_principal</item>
+        <item name="postSplashScreenTheme">@style/Tema.Domus</item>
+    </style>
+</resources>

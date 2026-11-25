@@ -1,0 +1,18 @@
+# Reglas de R8 específicas de Domus.
+# AGP combina todos los ficheros de src/main/keepRules.
+
+# SQLCipher utiliza JNI: las clases nativas deben conservar nombres y miembros.
+-keep class net.zetetic.database.** { *; }
+-keep class net.zetetic.database.sqlcipher.** { *; }
+-dontwarn net.zetetic.database.**
+
+# En la versión publicada se eliminan los registros de Logcat: así ninguna traza interna
+# (errores de cifrado, pilas de llamadas) queda visible para otras herramientas del dispositivo.
+-assumenosideeffects class android.util.Log {
+    public static int v(...);
+    public static int d(...);
+    public static int i(...);
+    public static int w(...);
+    public static int e(...);
+    public static boolean isLoggable(java.lang.String, int);
+}

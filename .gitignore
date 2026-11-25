@@ -1,0 +1,33 @@
+# --- Android Studio / IntelliJ (contiene rutas y ajustes locales de cada máquina) ---
+.idea/
+*.iml
+.DS_Store
+
+# --- Gradle y Kotlin ---
+.gradle/
+.kotlin/
+build/
+/captures
+.externalNativeBuild
+.cxx
+
+# --- Configuración local (ruta del SDK de cada máquina) ---
+local.properties
+
+# --- Secretos de firma: nunca deben subirse al repositorio ---
+keystore.properties
+*.jks
+*.keystore
+*.p12
+*.pem
+
+# --- Artefactos y volcados generados ---
+*.apk
+*.aab
+*.ap_
+*.hprof
+*.log
+
+# --- Variables de entorno o credenciales locales ---
+.env
+.env.*
